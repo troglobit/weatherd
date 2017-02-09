@@ -1,10 +1,8 @@
 
 #CPPFLAGS = -W -Wall -Wextra
-EXEC = sim web sensor
-OBJS = db.o strlcpy.o
+EXEC = sim web sensor weatherd
+OBJS = db.o strlcpy.o bme280.o tsl2561.o
 LDLIBS = -lsqlite3
-
-SENSOROBJS = bme280.o tsl2561.o
 
 all: $(EXEC)
 
@@ -12,7 +10,9 @@ web: web.o $(OBJS)
 
 sim: sim.o $(OBJS)
 
-sensor: sensor.o $(SENSOROBJS)
+sensor: sensor.o $(OBJS)
+
+weatherd: weatherd.o  $(OBJS)
 
 clean:
 	$(RM) $(EXEC) *.o
